@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "deck-of-cards-front"
+    }
+  },
+  "defaultProject": "deck-of-cards-front",
+  "cli": {
+    "analytics": "5774a1ca-c47f-4b5b-b65f-99287a67cb99"
+  }
 }
