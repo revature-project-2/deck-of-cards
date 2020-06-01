@@ -65,19 +65,21 @@ export class RegisterComponent implements OnInit {
       console.log('Not');
       return;
     }
-    // this.loading = true;
-    // this.userService.create(this.f.firstname, this.f.lastname, this.f.username, this.f.password)
-    //   .pipe(first())
-    //   .subscribe(
-    //     data => {
-    //       this.router.navigate([this.returnUrl]);
-    //       this.loading = false;
-    //     },
-    //     message => {
-    //       this.error = message[`error`];
-    //       // this.alertService.error(error);
-    //       this.loading = false;
-    //     });
+    this.loading = true;
+    this.userService.create(this.f.firstname.value, this.f.lastname.value, this.f.username.value, this.f.password.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          // this.router.navigate([this.returnUrl]);
+          console.log(data);
+          this.loading = false;
+        },
+        message => {
+          this.error = message[`error`];
+          // this.alertService.error(error);
+          console.log(message);
+          this.loading = false;
+        });
     console.log('Works');
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {map} from 'rxjs/operators';
 
@@ -9,9 +9,12 @@ import {map} from 'rxjs/operators';
 export class UserService {
 
   constructor(private http: HttpClient) { }
-  create(firstname, lastname, username, password) {
-    return this.http.put<any>(`${environment.apiUrl}/login`, {firstname, lastname, username, password})
+  create(firstname, lastname, username, password)  {
+    console.log('Creating User');
+    return this.http.post<any>(`${environment.apiUrl}/login/register`, {firstname, lastname, username, password, balance: 10050.0}, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')})
       .pipe(map(result => {
+        console.log(result);
         return result;
       }));
   }

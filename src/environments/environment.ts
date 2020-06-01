@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/TRMS_war_exploded'
+  apiUrl: 'http://localhost:8080/deck_of_cards_backend_war_exploded'
 
 };
 
