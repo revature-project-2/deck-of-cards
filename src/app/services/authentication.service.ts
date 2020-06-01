@@ -37,5 +37,5 @@ export class AuthenticationService {
     });
     console.log('User logged out.');
   }
-
+  
 }
