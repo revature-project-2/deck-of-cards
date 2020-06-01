@@ -1,8 +1,24 @@
 <div class="col-sm-8 offset-sm-3">
   <h2>Login</h2>
-  <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+  <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
     <div class="form-group">
-      <label>Username</label>
+      <label>First Name</label>
+      <input [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" class="form-control"
+             formControlName="firstname" type="text"/>
+      <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+        <div *ngIf="f.firstname.errors.required">First Name is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Last Name</label>
+      <input [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" class="form-control"
+             formControlName="lastname" type="text"/>
+      <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+        <div *ngIf="f.lastname.errors.required">Last Name is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>UserName</label>
       <input [ngClass]="{ 'is-invalid': submitted && f.username.errors }" class="form-control"
              formControlName="username" type="text"/>
       <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
@@ -17,12 +33,18 @@
         <div *ngIf="f.password.errors.required">Password is required</div>
       </div>
     </div>
+    <div class="form-group">
+      <label>Confirm</label>
+      <input [ngClass]="{ 'is-invalid': submitted && f.confirm.errors }" class="form-control"
+             formControlName="confirm" type="password"/>
+      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+        <div *ngIf="f.confirm.errors.required">Password is required</div>
+        <div *ngIf="f.confirm.errors">Password match</div>
+      </div>
+    </div>
     <small *ngIf=error class="text-danger">
       <span> {{error}}</span>
     </small>
-    <div class="form-group">
-
-    </div>
     <div class="form-group">
       <button [disabled]="loading" class="btn btn-primary">
         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>

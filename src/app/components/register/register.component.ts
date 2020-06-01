@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {UserService} from '../../services/user.service';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -10,31 +11,48 @@ import {UserService} from '../../services/user.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  registerForm: any;
+  registerForm: FormGroup;
   submitted: boolean;
   returnUrl: string;
   error: string;
+  loading = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private user: AuthenticationService
+    private userService: UserService
   ) {
-    if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
-    }
+    // check if there is a curent useer
+    // if (this.authenticationService.currentUserValue) {
+    //   this.router.navigate(['/']);
+    // }
   }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      password: ['', Validators.required],
+      confirm: ['', Validators.required]
+    }, {validator: this.matchingPasswords('password', 'confirm')});
+
+
 
     // get return url from route parameters or default to '/'
     this.returnUrl = '/employee';
+  }
+
+  matchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+    return (group: FormGroup) => {
+      const passwordInput = group.controls[passwordKey];
+      const passwordConfirmationInput = group.controls[passwordConfirmationKey];
+      if (passwordInput.value !== passwordConfirmationInput.value) {
+        return passwordConfirmationInput.setErrors({notEquivalent: true});
+      }
+    };
   }
 
   get f() {
@@ -43,10 +61,23 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if (this.loginForm.invalid) {
+    if (this.registerForm.invalid) {
+      console.log('Not');
       return;
     }
-    this.loading = true;
-    return;
+    // this.loading = true;
+    // this.userService.create(this.f.firstname, this.f.lastname, this.f.username, this.f.password)
+    //   .pipe(first())
+    //   .subscribe(
+    //     data => {
+    //       this.router.navigate([this.returnUrl]);
+    //       this.loading = false;
+    //     },
+    //     message => {
+    //       this.error = message[`error`];
+    //       // this.alertService.error(error);
+    //       this.loading = false;
+    //     });
+    console.log('Works');
   }
 }
