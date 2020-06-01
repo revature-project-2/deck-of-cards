@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/deck_of_cards_backend_war_exploded'
+  appUrl: 'http://localhost:8080/deck-of-cards-backend'
 
 };
 
