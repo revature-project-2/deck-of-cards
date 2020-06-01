@@ -1,1 +1,12 @@
-<p>login works!</p>
+<ng-container *ngIf="!loggedUser; else welcome">
+    <div>
+        <label for="username">Username</label>
+        <input type="text" name="username" [(ngModel)]="username"><br>
+        <label for="password">Password</label>
+        <input type="password" name="password" [(ngModel)]="password"><br>
+        <button type="button" name="loginButton" (click)="onClick()">Log In</button>
+    </div>
+</ng-container>
+<ng-template #welcome>
+    Welcome, {{ loggedUser.username }}
+</ng-template>
