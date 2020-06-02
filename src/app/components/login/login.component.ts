@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
 import { User } from '../../models/user';
 import { Router } from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
@@ -8,13 +8,14 @@ import {AuthenticationService} from '../../services/authentication.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
   @Output() logIn: EventEmitter<any> = new EventEmitter();
   loggedUser: User;
   username: string;
   password: string;
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) { }
+  // tslint:disable-next-line: max-line-length
+  constructor(private authenticationService: AuthenticationService, private router: Router, private el: ElementRef, private renderer:Renderer2) { }
 
   ngOnInit() {
     this.username = '';
@@ -26,6 +27,10 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+  ngAfterViewInit(){
+    this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'backgroundColor', '#343a40');
+ }
 
   onClick() {
     this.authenticationService.login(this.username, this.password).subscribe(

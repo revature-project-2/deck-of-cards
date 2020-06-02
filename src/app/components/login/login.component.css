@@ -1,0 +1,17 @@
+#loginForm
+{
+    padding: 100px 50px;
+    margin:auto;
+    width: 50%;
+    background-color: #343a40;
+}
+
+#loginInfo
+{
+    text-align: center;
+}
+
+.loginLabels
+{
+    color: #767978;
+}
