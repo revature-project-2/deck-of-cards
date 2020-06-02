@@ -10,9 +10,10 @@ import {map} from 'rxjs/operators';
 })
 export class GameService {
 
-  constructor(private urlService: UrlService, private http: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
+  // TODO add more game functionality
   addGame(game: Game): Observable<Game> {
     return this.http.post(`${environment.appUrl}/${game}`, {withCredentials: true}).pipe(
       map(resp => resp as Game)
