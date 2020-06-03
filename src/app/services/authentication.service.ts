@@ -22,16 +22,14 @@ export class AuthenticationService {
 
     return this.http.post<any>(`${environment.appUrl}/login`, {username, password})
       .pipe(map(result => {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
-        console.log(result);
+        // console.log(result);
         return result;
       }));
   }
 
-  logoutUser() {
+  logout() {
     this.http.delete(`${environment.appUrl}/login`).subscribe(data => {
     });
     console.log('User logged out.');
   }
-  
 }

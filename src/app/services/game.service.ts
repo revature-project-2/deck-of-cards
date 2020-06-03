@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UrlService } from './url.service';
+import {environment} from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Game } from '../models/game';
 import { Observable } from 'rxjs';
@@ -10,19 +10,21 @@ import { map } from 'rxjs/operators';
 })
 export class GameService {
 
-  constructor(private urlService: UrlService, private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
+  // TODO add more game functionality
   addGame(game: Game): Observable<Game> {
-    return this.http.post(this.urlService.getUrl() + 'game', game, {withCredentials: true}).pipe(
+    return this.http.post(`${environment.appUrl}/${game}`, {withCredentials: true}).pipe(
       map( resp => resp as Game)
     );
   }
 
-  updateCat(game: Game): Observable<object> {
-    return this.http.put(this.urlService.getUrl() + 'game/' + game.id, game, {withCredentials: true}).pipe();
-  }
+//  updateGame(game: Game): Observable<object> {
+//    return this.http.put(`${environment.appUrl}/game/` + game.id, game, {withCredentials: true}).pipe();
+//  }
 
-  deleteCat(game: Game): Observable<object> {
-    return this.http.delete(this.urlService.getUrl() + 'game/' + game.id).pipe();
-  }
+//  deleteGame(game: Game): Observable<object> {
+//    return this.http.delete(`${environment.appUrl}/game/` + game.id).pipe();
+//  }
+
 }
