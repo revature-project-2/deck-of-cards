@@ -18,8 +18,7 @@ export class GameService {
   newGame(): Observable<Deck> {
     return this.http.get<any>(`${environment.apiURL}/new/shuffle`)
       .pipe(map(result => {
-        console.log(result);
-        return result;
+        return result as Deck;
       }));
   }
 

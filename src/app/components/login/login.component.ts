@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, Rend
 import {User} from '../../models/user';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
+import {GameService} from '../../services/game.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   password: string;
 
   // tslint:disable-next-line: max-line-length
-  constructor(private authenticationService: AuthenticationService, private router: Router, private el: ElementRef, private renderer: Renderer2) {
+  constructor(private authenticationService: AuthenticationService, private router: Router, private el: ElementRef, private renderer: Renderer2,
+              private gameService: GameService) {
   }
 
   ngOnInit() {
@@ -34,13 +36,16 @@ export class LoginComponent implements OnInit, AfterViewInit {
  }
 
   onClick() {
-    this.authenticationService.login(this.username, this.password).subscribe(
-      resp => {
-        this.loggedUser = resp;
-        this.logIn.emit(null);
-        this.router.navigate(['menu']);
-      }
-    );
+    this.gameService.newGame();
+
+    // this.gameService.draw();
+    // this.authenticationService.login(this.username, this.password).subscribe(
+    //   resp => {
+    //     this.loggedUser = resp;
+    //     this.logIn.emit(null);
+    //     this.router.navigate(['menu']);
+    //   }
+    // );
   }
 
 }
