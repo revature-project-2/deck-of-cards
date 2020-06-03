@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
-import { User } from '../../models/user';
-import { Router } from '@angular/router';
+import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, Renderer2} from '@angular/core';
+import {User} from '../../models/user';
+import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   password: string;
 
   // tslint:disable-next-line: max-line-length
-  constructor(private authenticationService: AuthenticationService, private router: Router, private el: ElementRef, private renderer:Renderer2) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router, private el: ElementRef, private renderer: Renderer2) {
+  }
 
   ngOnInit() {
     this.username = '';
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       resp => {
         this.loggedUser = resp;
         this.logIn.emit(null);
-        this.router.navigate(['home']);
+        this.router.navigate(['menu']);
       }
     );
   }

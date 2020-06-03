@@ -6,7 +6,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
-import {MygamesComponent} from './components/mygames/mygames.component';
+import {BlackjackComponent} from './components/blackjack/blackjack.component';
 import {MenuComponent} from './components/menu/menu.component';
 
 @NgModule({
@@ -14,7 +14,7 @@ import {MenuComponent} from './components/menu/menu.component';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    MygamesComponent,
+    BlackjackComponent,
     MenuComponent
   ],
   imports: [
