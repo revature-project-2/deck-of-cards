@@ -4,13 +4,14 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Deck} from '../models/deck';
+import {Card} from '../models/card';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-
+  
   constructor(private http: HttpClient) {
   }
 
@@ -22,20 +23,19 @@ export class GameService {
 
   shuffle(id: number): Observable<Deck> {
     return this.http.get<any>(`${environment.apiURL}/${id}/shuffle/`)
-      .pipe(map(result => {
-        console.log(result);
-        return result;
-      }));
+      .pipe(map(result => result))
   }
 
-  draw(id: number, count: number): Observable<any> {
-    console.log(id);
+  draw(id: string, count: number): Observable<any> {
     return this.http.get<any>(`${environment.apiURL}/${id}/draw/?count=${count}`)
       .pipe(map(result => {
-        // console.log(result);
-        return result;
+        let cardArray = [];
+        for (let card of result.cards) {
+          let newCard = new Card(card.image, card.value, card.suit, card.code);
+          cardArray.push(newCard);
+        }
+        return cardArray;
       }));
   }
-
 
 }
