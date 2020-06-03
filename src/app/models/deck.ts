@@ -1,5 +1,5 @@
 export class Deck {
-  deckId: string;
+  deck_id: string;
   shuffled: boolean;
   remaining: number;
 }

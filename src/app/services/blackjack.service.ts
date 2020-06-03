@@ -9,10 +9,20 @@ export class BlackjackService {
 
   constructor(private gServ: GameService) { }
 
+  newGame() {
+    this.gServ.addGame();
+    console.log("This will ");
+    
+  }
+
   hit() {
-    this.gServ.pullCard(1);
+    return this.gServ.pullCard(1);
     console.log("A card is pulled from GameService");
     
+  }
+
+  stand() {
+    return 
   }
 
 }

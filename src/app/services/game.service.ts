@@ -17,21 +17,16 @@ export class GameService {
   // TODO add more game functionality
   newGame(): Observable<Deck> {
     return this.http.get<any>(`${environment.apiURL}/new/shuffle`)
-      .pipe(map(result => {
-        return result as Deck;
-      }));
+      .pipe(map(result => result as Deck));
   }
 
   shuffle(id: number): Observable<Deck> {
-    return this.http.get<any>(`${environment.appUrl}/${id}/shuffle/`)
-      .pipe(map(result => {
-        console.log(result);
-        return result;
-      }));
+    return this.http.get<any>(`${environment.apiURL}/${id}/shuffle/`)
+      .pipe(map(result => result))
   }
 
-  draw(id: number, count: number): Observable<Deck> {
-    return this.http.get<any>(`${environment.appUrl}/${id}/draw/?count=${count}`)
+  draw(id: string, count: number): Observable<any> {
+    return this.http.get<any>(`${environment.apiURL}/${id}/draw/?count=${count}`)
       .pipe(map(result => {
         console.log(result);
         return result;
