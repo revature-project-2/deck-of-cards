@@ -1,0 +1,21 @@
+<div class="table-responsive">
+    <h2 align="center">My Games</h2>
+    <table class="table table-striped table-hover" align="center">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Type</th>
+                <th scope="col">Score</th>
+                <th scope="col">Amount Won</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let game of myGames">
+                <th scope="row">{{ game.id }}</td>
+                <td>{{ game.gameTypeId.type_name }}</td>
+                <td>{{ game.score }}</td>
+                <td>{{ game.amountWon }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
