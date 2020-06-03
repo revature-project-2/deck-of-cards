@@ -8,6 +8,7 @@ import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
 import {BlackjackComponent} from './components/blackjack/blackjack.component';
 import {MenuComponent} from './components/menu/menu.component';
+import {LoadCardDataPipe} from './pipes/load-card-data.pipe';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {MenuComponent} from './components/menu/menu.component';
     LoginComponent,
     RegisterComponent,
     BlackjackComponent,
-    MenuComponent
+    MenuComponent,
+    LoadCardDataPipe
   ],
   imports: [
     BrowserModule,

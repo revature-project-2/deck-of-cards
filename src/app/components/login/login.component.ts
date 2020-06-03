@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
  }
 
   onClick() {
-    this.gameService.newGame();
+    this.gameService.newGame().subscribe(x => this.gameService.draw(x.deck_id, 2).subscribe(response => console.log(response)));
 
     // this.gameService.draw();
     // this.authenticationService.login(this.username, this.password).subscribe(
