@@ -1,1 +1,17 @@
-<p>mygames works!</p>
+<div class="col-sm-8 offset-sm-3" style="overflow-x:auto;">
+    <h2 align="center">My Games</h2>
+    <table align="center">
+        <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Score</th>
+            <th>Amount Won</th>
+        </tr>
+        <tr *ngFor="let game of myGames">
+            <td>{{ game.id }}</td>
+            <td>{{ game.gameTypeId.type_name }}</td>
+            <td>{{ game.score }}</td>
+            <td>{{ game.amountWon }}</td>
+        </tr>
+    </table>
+</div>
