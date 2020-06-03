@@ -4,39 +4,38 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Deck} from '../models/deck';
+import {Card} from '../models/card';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-
+  
   constructor(private http: HttpClient) {
   }
 
   // TODO add more game functionality
   newGame(): Observable<Deck> {
     return this.http.get<any>(`${environment.apiURL}/new/shuffle`)
-      .pipe(map(result => {
-        return result as Deck;
-      }));
+      .pipe(map(result => result as Deck));
   }
 
   shuffle(id: number): Observable<Deck> {
-    return this.http.get<any>(`${environment.appUrl}/${id}/shuffle/`)
-      .pipe(map(result => {
-        console.log(result);
-        return result;
-      }));
+    return this.http.get<any>(`${environment.apiURL}/${id}/shuffle/`)
+      .pipe(map(result => result))
   }
 
-  draw(id: number, count: number): Observable<Deck> {
-    return this.http.get<any>(`${environment.appUrl}/${id}/draw/?count=${count}`)
+  draw(id: string, count: number): Observable<any> {
+    return this.http.get<any>(`${environment.apiURL}/${id}/draw/?count=${count}`)
       .pipe(map(result => {
-        console.log(result);
-        return result;
+        let cardArray = [];
+        for (let card of result.cards) {
+          let newCard = new Card(card.image, card.value, card.suit, card.code);
+          cardArray.push(newCard);
+        }
+        return cardArray;
       }));
   }
-
 
 }

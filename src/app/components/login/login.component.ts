@@ -3,6 +3,7 @@ import {User} from '../../models/user';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {GameService} from '../../services/game.service';
+import { Card } from 'src/app/models/card';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   loggedUser: User;
   username: string;
   password: string;
+  deckId: string;
+  cardList = [];
 
   // tslint:disable-next-line: max-line-length
   constructor(private authenticationService: AuthenticationService, private router: Router, private el: ElementRef, private renderer: Renderer2,
@@ -36,8 +39,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
  }
 
   onClick() {
-    this.gameService.newGame();
-
+    this.gameService.newGame().subscribe(res => this.deckId = res.deck_id);
+    this.gameService.draw(this.deckId,2).subscribe(res => {
+      this.cardList = res;
+      // this.cardList = res.cards;
+      console.log(this.cardList);
+      }
+    );
     // this.gameService.draw();
     // this.authenticationService.login(this.username, this.password).subscribe(
     //   resp => {
