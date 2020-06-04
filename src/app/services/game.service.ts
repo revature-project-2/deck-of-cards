@@ -11,19 +11,23 @@ import {Card} from '../models/card';
   providedIn: 'root'
 })
 export class GameService {
-
+  gameId: string;
   constructor(private http: HttpClient) {
   }
 
-
+  // TODO add more game functionality
   newGame(): Observable<Deck> {
     return this.http.get<any>(`${environment.apiURL}/new/shuffle`)
-      .pipe(map(result => result as Deck));
+      .pipe(map(result =>{
+        this.gameId = result.deck_id;
+        return result as Deck;
+        })
+      );
   }
 
   shuffle(id: number): Observable<Deck> {
     return this.http.get<any>(`${environment.apiURL}/${id}/shuffle/`)
-      .pipe(map(result => result));
+      .pipe(map(result => result))
   }
 
   draw(id: string, count: number): Observable<any> {
@@ -36,14 +40,6 @@ export class GameService {
         }
         return cardArray;
       }));
-  }
-
-  save() {
-
-  }
-
-  resume() {
-
   }
 
 }

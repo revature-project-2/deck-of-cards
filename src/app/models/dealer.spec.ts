@@ -1,4 +1,4 @@
-import { Dealer } from './dealer.model';
+import { Dealer } from './dealer';
 
 describe('Dealer', () => {
   it('should create an instance', () => {
