@@ -11,5 +11,7 @@ export class Card {
         this.value = value;
         this.suit = suit;
         this.code = code;
+        this.numValue = 0;
+        this.isFlipped = false;
     }
 }

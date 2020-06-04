@@ -9,9 +9,9 @@ export class User {
   lastname: string;
   balance: number;
   games: Game[];
-  handValue:number;
-  bust:boolean;
-  blackJack:boolean;
-  naturalBlackJack:boolean;
-  cards: Card[];
+  handValue: number;
+  bust: boolean;
+  blackJack: boolean;
+  naturalBlackJack: boolean;
+  playerHand: Card[];
 }

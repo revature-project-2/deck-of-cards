@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 //import { Dealer } from 'src/app/models/dealer';
-//import { BlackjackService } from 'src/app/services/blackjack.service';
+import { BlackjackService } from 'src/app/services/blackjack.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class BlackjackComponent implements OnInit {
   player: User;
 
   //injecting the blackjack and authentication service
-  constructor(//private blackjackService: BlackjackService,
+  constructor(private blackjackService: BlackjackService,
               private authentService: AuthenticationService) {
   }
 
