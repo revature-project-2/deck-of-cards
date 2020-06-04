@@ -38,7 +38,7 @@ export class BlackjackComponent implements OnInit {
   }
 
   public deal(): void {
-      this.blackjackService.hit();
+    this.blackjackService.startRound();
   }
 
   public hit(): void {

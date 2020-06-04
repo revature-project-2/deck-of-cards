@@ -3,10 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-         production: false,
-         appUrl: 'http://localhost:8080/deck-of-cards-backend',
-         apiURL: 'https://deckofcardsapi.com/api/deck',
-       };
+  production: false,
+  appUrl: 'http://localhost:8080/deck-of-cards-backend',
+  // Multezem only: http://localhost:8080/deck_of_cards_backend_war_exploded
+  apiURL: 'https://deckofcardsapi.com/api/deck'
+};
 
 /*
  * For easier debugging in development mode, you can import the following file

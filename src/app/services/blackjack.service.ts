@@ -7,6 +7,7 @@ import { Deck } from '../models/deck';
 import { Card } from '../models/card';
 import { Dealer } from '../models/dealer';
 import { User } from '../models/user';
+import { AuthenticationService } from './authentication.service';
 
 enum States { 
   Start, Dealing, Dealt, Stay, Blackjack, Win, Lose, Tie, Bust
@@ -16,13 +17,15 @@ enum States {
   providedIn: 'root'
 })
 export class BlackjackService {
-  user = new User();
+  newCard: Card;
+  user: User;
   dealer = new Dealer();
   private _gameState : States;
 
   // handlist = [];
   // sum = 0;
-  constructor(private gServ: GameService, private http: HttpClient) { }
+  constructor(private gServ: GameService, private http: HttpClient, private authentService: AuthenticationService) 
+  { this.user = authentService.currentUserValue}
 
   get gameState(): string {
     return States[this._gameState];
@@ -37,34 +40,21 @@ export class BlackjackService {
   }
 
   getCard(hand: Card[]) {
-    this.gServ.draw(this.gServ.gameId, 1).subscribe(res => {
-      console.log(res);
-      let newCard = res[0];
-        if (newCard.value === 'KING' || newCard.value === 'QUEEN' || newCard.value === 'JACK') {
-          newCard.numValue = 10;
-        } else if (newCard.value === 'ACE') {
-          newCard.numValue = 1;
+    this.gServ.draw(this.gServ.getGameId(), 1).subscribe(
+      res => {
+        this.newCard = res[0];
+        if (this.newCard.value === 'KING' || this.newCard.value === 'QUEEN' || this.newCard.value === 'JACK') {
+          this.newCard.numValue = 10;
+        } else if (this.newCard.value === 'ACE') {
+          this.newCard.numValue = 1;
         } else {
           // tslint:disable-next-line
-          newCard.numValue = parseInt(newCard.value);
+          this.newCard.numValue = parseInt(this.newCard.value);
         }
-        hand.push(newCard);
-    })
-    // return this.gServ.draw(this.gServ.gameId, 1).pipe(
-    //   map(res => {
-    //     this.newCard = res[0];
-    //     if (this.newCard.value === 'KING' || this.newCard.value === 'QUEEN' || this.newCard.value === 'JACK') {
-    //       this.newCard.numValue = 10;
-    //     } else if (this.newCard.value === 'ACE') {
-    //       this.newCard.numValue = 1;
-    //     } else {
-    //       // tslint:disable-next-line
-    //       this.newCard.numValue = parseInt(this.newCard.value);
-    //     }
-    //     // let tempSum = this.calculateHand() + this.newCard.numValue;
-    //     hand.push(this.newCard);
-    //   })
-    // );
+        // let tempSum = this.calculateHand() + this.newCard.numValue;
+        hand.push(this.newCard);
+      }
+    );
   }
 
   startNewGame() {
@@ -95,6 +85,7 @@ export class BlackjackService {
 
   hit() { // hit button function on click
     this.getCard(this.user.playerHand);
+    console.log(this.user.playerHand);
     const handScore = this.calculateHand(this.user.playerHand);
     if (handScore > 21) {
       this.user.bust = true;
@@ -111,6 +102,7 @@ export class BlackjackService {
       }
       this.dealerTurn();
     }
+    console.log(handScore);
   }
 
   stand() { // this is stand button function
@@ -155,10 +147,14 @@ export class BlackjackService {
     this.dealer.bust = false;
     this.getCard(this.user.playerHand);
     this.getCard(this.user.playerHand);
+    // this.hit();
+    // this.hit();
+    console.log(this.user.playerHand);
     this.user.handValue = this.calculateHand(this.user.playerHand);
     this.getCard(this.dealer.dealerHand);
     this.getCard(this.dealer.dealerHand);
     this.dealer.handValue = this.calculateHand(this.dealer.dealerHand);
+    this.gameState = 'Dealt'
   }
 
   endRound() {
