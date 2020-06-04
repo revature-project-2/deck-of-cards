@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     // });
 
 
-    this.gameService.save().subscribe(res => this.deckId = res.deck_id);
+    // this.gameService.save().subscribe(res => this.deckId = res.deck_id);
 
     // this.gameService.draw(this.deckId,2).subscribe(res => {
     //   this.cardList = res;
@@ -59,13 +59,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
 
     // this.gameService.draw();
-    // this.authenticationService.login(this.username, this.password).subscribe(
-    //   resp => {
-    //     this.loggedUser = resp;
-    //     this.logIn.emit(null);
-    //     this.router.navigate(['menu']);
-    //   }
-    // );
+    this.authenticationService.login(this.username, this.password).subscribe(
+      resp => {
+        this.loggedUser = resp;
+        this.logIn.emit(null);
+        this.router.navigate(['menu']);
+      }
+    );
 
   }
 
