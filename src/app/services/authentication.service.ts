@@ -9,11 +9,18 @@ import {User} from '../models/user';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  public currentUser: Observable<User>;
+
 
   constructor(private http: HttpClient) {
     // this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     // this.currentUser = this.currentUserSubject.asObservable();
+  }
+
+  currentUser(): Observable<User> {
+    return this.http.get<User>(`${environment.appUrl}/login`)
+      .pipe(map(result => {
+        return result;
+      }));
   }
 
   login(username, password) {

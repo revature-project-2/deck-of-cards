@@ -10,6 +10,7 @@ import {MygamesComponent} from './components/mygames/mygames.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
+  {path: 'login', component: MenuComponent},
   {path: 'menu', component: MenuComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'blackjackComponent', component: BlackjackComponent},
