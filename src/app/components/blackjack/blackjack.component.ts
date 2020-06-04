@@ -28,14 +28,18 @@ export class BlackjackComponent implements OnInit {
         this.player = resp;
       }
     );
-
+    this.blackjackService.newGame().subscribe(
+      resp => {
+        console.log(resp.deck_id);
+      }
+    );
     this.dealerCards = this.blackjackService.dealer.dealerHand;
     this.playerCards = this.blackjackService.user.playerHand;
     console.log(this.dealerCards);
   }
 
   public deal(): void {
-      this.blackjackService.hit();
+    this.blackjackService.startRound();
   }
 
   public hit(): void {

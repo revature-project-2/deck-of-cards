@@ -14,12 +14,16 @@ export class GameService {
   gameId: string;
   constructor(private http: HttpClient) {
   }
-
+  getGameId() {
+    return this.gameId;
+  }
   // TODO add more game functionality
   newGame(): Observable<Deck> {
+    console.log("newGame in game service");
     return this.http.get<any>(`${environment.apiURL}/new/shuffle`)
       .pipe(map(result => {
           this.gameId = result.deck_id;
+          console.log(result.deck_id);
           return result as Deck;
         })
       );
@@ -31,7 +35,7 @@ export class GameService {
   }
 
   draw(id: string, count: number): Observable<any> {
-    return this.http.get<any>(`${environment.apiURL}/${id}/draw/?count=${count}`)
+    return this.http.get<any>(`${environment.apiURL}/${this.gameId}/draw/?count=${count}`)
       .pipe(map(result => {
         const cardArray = [];
         for (const card of result.cards) {
