@@ -1,8 +1,11 @@
 <h1 class="text-center">Blackjack</h1>
+<!-- <div class="balance">
+        <h2>Balance: {{user.balance}}</h2>
+    </div> -->
 <div class="dealerHand border bg-success">
     <div>
         <h2>Dealer</h2>
-      <!-- <div *ngIf="dealerCards.length === 0"> -->
+      <!-- <div *ngIf="!dealerCards.length"> -->
         <img src="https://i.ibb.co/n8Rc4FM/card-back.png">
       <!-- </div> -->
       <div *ngFor="let card of dealerCards">
@@ -13,9 +16,6 @@
 
 <div [ngSwitch]="blackjackService.gameState">
     <div>
-    <!-- <div class="balance">
-        <h2>Balance: {{user.balance}}</h2>
-    </div> -->
 
     <!-- <div *ngSwitchCase="'Start'"> -->
         <div class="text-center">
@@ -61,6 +61,7 @@
 <div class="playerHand border bg-success">
     <div>
         <h2>Player</h2>
+        <!-- <h2>{{User.username}}</h2> -->
       <!-- <div *ngIf="playerCards.length === 0" class="text-center"> -->
         <img src="https://i.ibb.co/n8Rc4FM/card-back.png">
       <!-- </div> -->
