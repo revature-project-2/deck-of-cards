@@ -8,4 +8,6 @@ export class Game {
     gameTypeId: GameType;
     score: number;
     amountWon: number;
+
+    // constructor()
 }
