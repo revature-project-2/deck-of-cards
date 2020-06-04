@@ -3,7 +3,6 @@ import {User} from '../../models/user';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {GameService} from '../../services/game.service';
-import { Card } from 'src/app/models/card';
 
 @Component({
   selector: 'app-login',
@@ -39,21 +38,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
  }
 
   onClick() {
-    this.gameService.newGame().subscribe(res => this.deckId = res.deck_id);
-    this.gameService.draw(this.deckId,2).subscribe(res => {
-      this.cardList = res;
-      // this.cardList = res.cards;
-      console.log(this.cardList);
+    this.authenticationService.login(this.username, this.password).subscribe(
+      resp => {
+        this.loggedUser = resp;
+        this.logIn.emit(null);
+        this.router.navigate(['menu']);
       }
     );
-    // this.gameService.draw();
-    // this.authenticationService.login(this.username, this.password).subscribe(
-    //   resp => {
-    //     this.loggedUser = resp;
-    //     this.logIn.emit(null);
-    //     this.router.navigate(['menu']);
-    //   }
-    // );
   }
 
 }

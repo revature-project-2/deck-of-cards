@@ -10,11 +10,11 @@ import {MygamesComponent} from './components/mygames/mygames.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
-  {path: '**', redirectTo: ''},
   {path: 'menu', component: MenuComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'blackjackComponent', component: BlackjackComponent},
-  {path: 'mygames', component: MygamesComponent}
+  {path: 'blackjack', component: BlackjackComponent},
+  {path: 'mygames', component: MygamesComponent},
+  {path: '**', redirectTo: ''}
 ];
 
 
