@@ -10,7 +10,6 @@ import {BlackjackComponent} from './components/blackjack/blackjack.component';
 import {MenuComponent} from './components/menu/menu.component';
 import {MygamesComponent} from './components/mygames/mygames.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
