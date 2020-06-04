@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'menu', component: MenuComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'blackjackComponent', component: BlackjackComponent},
+  {path: 'blackjack', component: BlackjackComponent},
   {path: 'mygames', component: MygamesComponent},
   {path: '**', redirectTo: ''}
 ];
