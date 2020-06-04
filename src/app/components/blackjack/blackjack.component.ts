@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { User } from 'src/app/models/user';
 //import { Dealer } from 'src/app/models/dealer';
 import { BlackjackService } from 'src/app/services/blackjack.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Card } from 'src/app/models/card';
 
 @Component({
   selector: 'app-blackjack',
@@ -12,9 +13,12 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 
 export class BlackjackComponent implements OnInit {
   player: User;
+  public playerCards: Card[] = [];
+  public dealerCards: Card[] = [];
+  @Input() dealer:boolean = false;
 
   //injecting the blackjack and authentication service
-  constructor(private blackjackService: BlackjackService,
+  constructor(public blackjackService: BlackjackService,
               private authentService: AuthenticationService) {
   }
 
@@ -24,18 +28,22 @@ export class BlackjackComponent implements OnInit {
         this.player = resp;
       }
     );
+
+    this.dealerCards = this.blackjackService.dealer.dealerHand;
+    this.playerCards = this.blackjackService.user.playerHand;
+    console.log(this.dealerCards);
   }
 
   public deal(): void {
-      //this.blackjackService.deal();
+      this.blackjackService.hit();
   }
 
   public hit(): void {
-    //this.blackjackService.hit();
+    this.blackjackService.hit();
   }
 
   public stay(): void {
-    //this.blackjackService.stay();
+    this.blackjackService.stand();
   }
 
   public reset(): void {

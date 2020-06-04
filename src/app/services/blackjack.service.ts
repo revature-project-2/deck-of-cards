@@ -8,6 +8,10 @@ import { Card } from '../models/card';
 import { Dealer } from '../models/dealer';
 import { User } from '../models/user';
 
+enum States { 
+  Start, Dealing, Dealt, Stay, Blackjack, Win, Lose, Tie, Bust
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,10 +19,19 @@ export class BlackjackService {
   newCard: Card;
   user = new User();
   dealer = new Dealer();
+  private _gameState : States;
+
   // handlist = [];
   // sum = 0;
   constructor(private gServ: GameService, private http: HttpClient) { }
 
+  get gameState(): string {
+    return States[this._gameState];
+  }
+
+  set gameState(s: string) {
+    this._gameState = States[s];
+  }
   newGame(): Observable<Deck> {
     // make a database call to store game
     return this.gServ.newGame();
@@ -42,8 +55,8 @@ export class BlackjackService {
     );
   }
 
-
   startNewGame() {
+    //this.gameState = 'Start';
     this.newGame();
   }
 
@@ -73,19 +86,23 @@ export class BlackjackService {
     const handScore = this.calculateHand(this.user.playerHand);
     if (handScore > 21) {
       this.user.bust = true;
+      this.gameState = 'Bust';
       this.dealerTurn();
     }
     else if (handScore === 21) {
       if (this.user.playerHand.length === 2) {
         this.user.naturalBlackJack = true;
+        this.gameState = 'Blackjack';
       } else {
         this.user.blackJack = true;
+        this.gameState = 'Win';
       }
       this.dealerTurn();
     }
   }
 
   stand() { // this is stand button function
+    this.gameState = 'Stay';
     this.dealerTurn();
   }
 
@@ -134,22 +151,22 @@ export class BlackjackService {
 
   endRound() {
     if (this.user.bust) { // In the case that user busts, set user to lost
-      // TODO: set user to lost
+      this.gameState = 'Lost';
     } else if (this.dealer.bust) { // In the case of dealer busting, user wins
-      // user wins
+      this.gameState = 'Win';
     } else if(this.user.handValue > this.dealer.handValue) { // user has higher hand than dealer, user wins
-      // user wins
+      this.gameState = 'Win';
     } else if (this.dealer.handValue > this.user.handValue) { // dealer has higher hand than user, user loses
-      // user loses
+      this.gameState = 'Lost';
     } else if (this.user.handValue === this.dealer.handValue) { // if both players have same hand value
         if(this.user.naturalBlackJack && this.dealer.naturalBlackJack) { // if both have natural black jack they tie
-          // tie (push)
+          this.gameState = 'Tie';
         } else if (this.user.naturalBlackJack) { // if just user has natural black jack they win
-          // user wins
+          this.gameState = 'Blackjack';
         } else if(this.dealer.naturalBlackJack) { // if just dealer has natural black jack user loses
-          // user loses
+          this.gameState = 'Lost';
         } else {
-          // tie
+          this.gameState = 'Tie';
         }
     }
 
