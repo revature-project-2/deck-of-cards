@@ -4,8 +4,6 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {GameService} from '../../services/game.service';
 import {BlackjackService} from '../../services/blackjack.service';
-import { Card } from 'src/app/models/card';
-import { BlackjackComponent } from '../blackjack/blackjack.component';
 
 @Component({
   selector: 'app-login',
@@ -18,8 +16,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
   username: string;
   password: string;
   deckId: string;
-  cardList = [];
-  handList = [];
 
   // tslint:disable-next-line: max-line-length
   constructor(private authenticationService: AuthenticationService, private router: Router, private el: ElementRef, private renderer: Renderer2,
@@ -35,7 +31,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         this.loggedUser = resp;
       }
     );
-    this.bjService.newGame().subscribe(res => this.deckId = res.deck_id);
+    // this.bjService.newGame().subscribe(res => this.deckId = res.deck_id);
   }
 
   ngAfterViewInit(){
@@ -44,16 +40,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   onClick() {
     // this.bjService.newGame().subscribe(res => this.deckId = res.deck_id);
-    console.log(this.deckId);
-    
-    this.bjService.getCard().subscribe(res => {
-      console.log(res);
-      console.log(this.bjService.calculateHand());
-    });
+    // console.log(this.deckId);
 
-    
-    
-    // this.gameService.newGame().subscribe(res => this.deckId = res.deck_id);
+    // this.bjService.getCard().subscribe(res => {
+    //   console.log(res);
+    //   console.log(this.bjService.calculateHand());
+    // });
+
+
+    this.gameService.save().subscribe(res => this.deckId = res.deck_id);
 
     // this.gameService.draw(this.deckId,2).subscribe(res => {
     //   this.cardList = res;
@@ -71,6 +66,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     //     this.router.navigate(['menu']);
     //   }
     // );
+
   }
 
 }
