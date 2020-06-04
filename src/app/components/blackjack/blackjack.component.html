@@ -1,25 +1,39 @@
-<!-- <div [ngSwitch]="blackjackService.gameState"> -->
+<h1 class="text-center">Blackjack</h1>
+<div class="dealerHand border bg-success">
     <div>
-    <div class="balance">
-        <h2>Balance: {{player.balance}}</h2>
+        <h2>Dealer</h2>
+      <!-- <div *ngIf="dealerCards.length === 0"> -->
+        <img src="https://i.ibb.co/n8Rc4FM/card-back.png">
+      <!-- </div> -->
+      <div *ngFor="let card of dealerCards">
+         <img [src]="card.image"> 
+      </div>
     </div>
+</div>
 
-    <div *ngSwitchCase="'Start'">
-        <button (click)="deal()" type="button" class="btn btn-success"><strong>DEAL</strong></button>
-    </div>
+<div [ngSwitch]="blackjackService.gameState">
+    <div>
+    <!-- <div class="balance">
+        <h2>Balance: {{user.balance}}</h2>
+    </div> -->
 
-    <div *ngSwitchCase="'Dealt'">
+    <!-- <div *ngSwitchCase="'Start'"> -->
+        <div class="text-center">
+            <button (click)="deal()" type="button" class="btn btn-dark" style="align-self: center;"><strong>DEAL</strong></button>
+        </div>
+
+    <div *ngSwitchCase="'Dealt'" class="text-center">
         <button (click)="reset()" type="button" class="btn btn-dark"><strong>RESET</strong></button>
         <button (click)="save()" type="button" class="btn btn-primary"><strong>SAVE</strong></button>
         <button (click)="hit()" type="button" class="btn btn-warning"><strong>HIT</strong></button>
         <button (click)="stay()" type="button" class="btn btn-danger"><strong>STAY</strong></button>
     </div>
 
-    <div *ngSwitchCase="'Dealing'">
+    <div *ngSwitchCase="'Dealing'" class="text-center">
         <div class="alert alert-dark"><strong>DEALING</strong></div>       
     </div>
 
-    <div *ngSwitchCase="'Stay'">
+    <div *ngSwitchCase="'Stay'" class="text-center">
         <div class="alert alert-dark"><strong>DEALING</strong></div>       
     </div>
 
@@ -27,20 +41,31 @@
         <div class="alert alert-primary"><strong>BLACKJACK!</strong></div>       
     </div>
 
-    <div *ngSwitchCase="'Win'">
+    <div *ngSwitchCase="'Win'" class="text-center">
         <div class="alert alert-success"><strong>YOU WIN</strong></div>       
     </div>
 
-    <div *ngSwitchCase="'Lose'">
+    <div *ngSwitchCase="'Lose'" class="text-center">
         <div class="alert alert-danger"><strong>YOU LOSE</strong></div>
     </div>
 
-    <div *ngSwitchCase="'Tie'">
+    <div *ngSwitchCase="'Tie'" class="text-center">
         <div class="alert alert-warning"><strong>TIE</strong></div>
     </div>
 
-    <div *ngSwitchCase="'Bust'">
+    <div *ngSwitchCase="'Bust'" class="text-center">
         <div class="alert alert-danger"><strong>BUST!</strong></div>
     </div>
 
+</div>
+<div class="playerHand border bg-success">
+    <div>
+        <h2>Player</h2>
+      <!-- <div *ngIf="playerCards.length === 0" class="text-center"> -->
+        <img src="https://i.ibb.co/n8Rc4FM/card-back.png">
+      <!-- </div> -->
+      <div *ngFor="let card of playerCards" class="text-center">
+         <img [src]="card.image"> 
+      </div>
+    </div>
 </div>

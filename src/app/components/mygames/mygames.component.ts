@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import {Component, OnInit} from '@angular/core';
+import {User} from 'src/app/models/user';
+import {AuthenticationService} from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-mygames',
@@ -10,7 +10,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 
 export class MygamesComponent implements OnInit {
   loggedUser: User;
-  myGames: User["games"];
+  myGames: User['games'];
 
   constructor(private authentService: AuthenticationService) { }
 
@@ -21,5 +21,4 @@ export class MygamesComponent implements OnInit {
       }
     );
   }
-  
 }
