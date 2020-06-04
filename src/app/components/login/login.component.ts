@@ -35,21 +35,21 @@ export class LoginComponent implements OnInit, AfterViewInit {
         this.loggedUser = resp;
       }
     );
-    this.bjService.newGame().subscribe(res => this.deckId = res.deck_id);
+    // this.bjService.newGame().subscribe(res => this.deckId = res.deck_id);
   }
 
   ngAfterViewInit(){
     this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'backgroundColor', '#343a40');
  }
 
-  onClick() {
-    // this.bjService.newGame().subscribe(res => this.deckId = res.deck_id);
-    console.log(this.deckId);
+  // onClick() {
+  //   // this.bjService.newGame().subscribe(res => this.deckId = res.deck_id);
+  //   console.log(this.deckId);
     
-    this.bjService.getCard().subscribe(res => {
-      console.log(res);
-      console.log(this.bjService.calculateHand());
-    });
+  //   this.bjService.getCard().subscribe(res => {
+  //     console.log(res);
+  //     console.log(this.bjService.calculateHand());
+  //   });
 
     
     
@@ -71,6 +71,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
     //     this.router.navigate(['menu']);
     //   }
     // );
-  }
 
+  onClick() {
+    this.authenticationService.login(this.username, this.password).subscribe(
+      resp => {
+        this.loggedUser = resp;
+        this.logIn.emit(null);
+        this.router.navigate(['home']);
+      }
+    );
+  }
 }
