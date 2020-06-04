@@ -15,6 +15,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'blackjack', component: BlackjackComponent, canActivate: [AuthGuard]},
   {path: 'mygames', component: MygamesComponent, canActivate: [AuthGuard]},
+  {path: 'test', component: MygamesComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: ''}
 ];
 
