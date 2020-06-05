@@ -41,9 +41,8 @@ export class LoginComponent implements OnInit {
       resp => {
         this.loggedUser = resp;
         this.logIn.emit(null);
-        this.router.navigate(['menu']);
+        this.router.navigate(['home']);
       }
     );
   }
-
 }
