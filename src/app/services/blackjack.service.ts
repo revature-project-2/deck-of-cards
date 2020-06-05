@@ -10,8 +10,10 @@ import { User } from '../models/user';
 import { AuthenticationService } from './authentication.service';
 
 enum States { 
-  Start, Dealing, Dealt, Stay, Blackjack, Win, Lose, Tie, Bust
+  Start, Dealing, Dealt, Stand, Blackjack, Win, Lose, Tie, Bust
 }
+
+const MESSAGE_WAIT: number = 500;
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +36,10 @@ export class BlackjackService {
   set gameState(s: string) {
     this._gameState = States[s];
   }
+      //this.gameState = 'Start';
+
   newGame(): Observable<Deck> {
+    this.gameState = 'Start';
     // make a database call to store game
     return this.gServ.newGame();
   }
@@ -58,7 +63,7 @@ export class BlackjackService {
   }
 
   startNewGame() {
-    //this.gameState = 'Start';
+    this.gameState = 'Start';
     this.newGame();
   }
 
@@ -85,28 +90,36 @@ export class BlackjackService {
 
   hit() { // hit button function on click
     this.getCard(this.user.playerHand);
+    setTimeout(() => {
     console.log(this.user.playerHand);
     const handScore = this.calculateHand(this.user.playerHand);
     if (handScore > 21) {
       this.user.bust = true;
+      setTimeout(() => {
       this.gameState = 'Bust';
+      }, MESSAGE_WAIT)
       this.dealerTurn();
     }
     else if (handScore === 21) {
       if (this.user.playerHand.length === 2) {
         this.user.naturalBlackJack = true;
-        this.gameState = 'Blackjack';
+        setTimeout(() => {
+          this.gameState = 'Blackjack';
+          }, MESSAGE_WAIT)
       } else {
         this.user.blackJack = true;
-        this.gameState = 'Win';
+        setTimeout(() => {
+          this.gameState = 'Win';
+          }, MESSAGE_WAIT)
       }
       this.dealerTurn();
     }
     console.log(handScore);
+  }, MESSAGE_WAIT)
   }
 
   stand() { // this is stand button function
-    this.gameState = 'Stay';
+    this.gameState = 'Stand';
     this.dealerTurn();
   }
 
@@ -120,14 +133,22 @@ export class BlackjackService {
       } else if (this.dealer.handValue === 21) {
           if (this.dealer.dealerHand.length === 2) {
             this.dealer.naturalBlackJack = true;
+            setTimeout(() => {
+              this.gameState = 'Lose';
+              }, MESSAGE_WAIT)
           } else {
             this.dealer.blackJack = true;
+            setTimeout(() => {
+              this.gameState = 'Lose';
+              }, MESSAGE_WAIT)
           }
           this.endRound();
       } else if (this.dealer.handValue < 17){
         this.getCard(this.dealer.dealerHand);
+        setTimeout(() => {
         this.dealer.handValue = this.calculateHand(this.dealer.dealerHand);
         this.dealerTurn();
+      }, MESSAGE_WAIT)
       } else if (this.dealer.handValue >= 17) {
         this.endRound();
       }
