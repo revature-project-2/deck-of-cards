@@ -7,5 +7,5 @@ export class Game {
   deckId: number;
   gameTypeId: GameType;
   score: number;
-  amountWon: number;
+  amount_won: number;
 }

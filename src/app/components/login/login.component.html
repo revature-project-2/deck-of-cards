@@ -1,18 +1,16 @@
-<ng-container *ngIf="!loggedUser; else welcome">
-    <div id="loginForm">
-        <div id="loginInfo">
-            <h1 class="loginLabels">Log In For Fun!</h1>
-            <label for="username" class="loginLabels">Username</label>&nbsp;
-            <input type="text" name="username" [(ngModel)]="username"><br>
-            <label for="password" class="loginLabels">Password</label>&nbsp;
-            <input type="password" name="password" [(ngModel)]="password"><br>
-            <div id="actions">
-                <button type="button" name="loginButton" (click)="onClick()">Log In</button>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="" id="register">Register</a>
-            </div>
+<ng-container>
+  <div id="loginForm">
+    <div id="loginInfo">
+      <h1 class="loginLabels">Log In For Fun!</h1>
+      <label for="username" class="loginLabels">Username</label>&nbsp;
+      <input type="text" name="username" [(ngModel)]="username"><br>
+      <label for="password" class="loginLabels">Password</label>&nbsp;
+      <input type="password" name="password" [(ngModel)]="password"><br>
+      <div id="actions">
+        <button type="button" name="loginButton" (click)="onClick()">Log In</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]="['/register']" id="register">
+        Register</a>
+      </div>
         </div>
     </div>
 </ng-container>
-<ng-template #welcome>
-    Welcome, {{ loggedUser.firstname }}
-</ng-template>

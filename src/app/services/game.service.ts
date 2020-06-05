@@ -29,7 +29,6 @@ export class GameService {
           return result as Deck;
         })
       );
-    // this.save();
   }
 
   shuffle(id: number): Observable<Deck> {
