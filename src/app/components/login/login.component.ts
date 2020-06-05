@@ -26,38 +26,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.username = '';
     this.password = '';
     // check if anyone is already logged in
-    this.authenticationService.login(null, null).subscribe(
-      resp => {
-        this.loggedUser = resp;
-      }
-    );
-    // this.bjService.newGame().subscribe(res => this.deckId = res.deck_id);
+    if (this.authenticationService.currentUserValue) {
+      this.router.navigate(['menu']);
+      this.loggedUser = this.authenticationService.currentUserValue;
+    }
   }
-
   ngAfterViewInit(){
     this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'backgroundColor', '#343a40');
- }
-
+  }
   onClick() {
-    // this.bjService.newGame().subscribe(res => this.deckId = res.deck_id);
-    // console.log(this.deckId);
-    // this.bjService.getCard().subscribe(res => {
-    //   console.log(res);
-    //   console.log(this.bjService.calculateHand());
-    // });
-    
-    // this.gameService.newGame().subscribe(res => this.deckId = res.deck_id);
-
-
-    // this.gameService.draw(this.deckId,2).subscribe(res => {
-    //   this.cardList = res;
-    //   // this.cardList = res.cards;
-    //   console.log(this.cardList);
-    //   }
-    // );
-
-    // this.gameService.draw();
-
     this.authenticationService.login(this.username, this.password).subscribe(
       resp => {
         this.loggedUser = resp;
