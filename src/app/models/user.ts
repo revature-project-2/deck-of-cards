@@ -1,5 +1,5 @@
-import { Game } from './game';
-import { Card } from './card';
+import {Game} from './game';
+import {Card} from './card';
 
 export class User {
   id: number;
@@ -13,5 +13,5 @@ export class User {
   bust: boolean;
   blackJack: boolean;
   naturalBlackJack: boolean;
-  playerHand: Card[];
+  hand: Card[];
 }
