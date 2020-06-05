@@ -24,11 +24,14 @@ export class LoginComponent implements OnInit {
     this.username = '';
     this.password = '';
     // check if anyone is already logged in
-    this.authenticationService.login(null, null).subscribe(
-      resp => {
-        this.loggedUser = resp;
-      }
-    );
+    // this.authenticationService.login(null, null).subscribe(
+    //   resp => {
+    //     this.loggedUser = resp;
+    //   }
+    // );
+    if (this.authenticationService.currentUserValue) {
+      this.router.navigate(['menu']);
+    }
     // this.bjService.newGame().subscribe(res => this.deckId = res.deck_id);
   }
 
@@ -41,7 +44,7 @@ export class LoginComponent implements OnInit {
       resp => {
         this.loggedUser = resp;
         this.logIn.emit(null);
-        this.router.navigate(['home']);
+        this.router.navigate(['menu']);
       }
     );
   }
