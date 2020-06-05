@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from 'src/app/models/user';
 import {AuthenticationService} from 'src/app/services/authentication.service';
+import { Game } from 'src/app/models/game';
 
 @Component({
   selector: 'app-mygames',
@@ -10,8 +11,7 @@ import {AuthenticationService} from 'src/app/services/authentication.service';
 
 export class MygamesComponent implements OnInit {
   loggedUser: User;
-  myGames: User['games'];
-
+  myGames: Game[];
   constructor(private authentService: AuthenticationService) { }
 
   ngOnInit() {
@@ -20,5 +20,8 @@ export class MygamesComponent implements OnInit {
         this.loggedUser = resp;
       }
     );
+    this.myGames = JSON.parse(localStorage.getItem('currentUser')).games;
+      console.log(this.myGames);
   }
+
 }

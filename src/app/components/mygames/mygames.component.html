@@ -12,9 +12,10 @@
         <tbody>
             <tr *ngFor="let game of myGames">
                 <th scope="row">{{ game.id }}</th>
-                <td>{{ game.gameTypeId.type_name }}</td>
-                <td>{{ game.score }}</td>
-                <td>{{ game.amountWon }}</td>
+                <td>{{ game.type.name }}</td>
+                <td *ngIf="game.score">{{ game.score }}</td>
+                <td *ngIf="!game.score">0</td>
+                <td>{{ game.amount_won }}</td>
             </tr>
         </tbody>
     </table>
