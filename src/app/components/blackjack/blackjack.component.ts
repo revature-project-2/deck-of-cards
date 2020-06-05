@@ -39,14 +39,20 @@ export class BlackjackComponent implements OnInit {
 
   public deal(): void {
     this.blackjackService.startRound();
+    this.dealerCards = this.blackjackService.dealer.dealerHand;
+    this.playerCards = this.blackjackService.user.playerHand;
   }
 
   public hit(): void {
     this.blackjackService.hit();
+    this.dealerCards = this.blackjackService.dealer.dealerHand;
+    this.playerCards = this.blackjackService.user.playerHand;
   }
 
-  public stay(): void {
+  public stand(): void {
     this.blackjackService.stand();
+    this.dealerCards = this.blackjackService.dealer.dealerHand;
+    this.playerCards = this.blackjackService.user.playerHand;
   }
 
   public reset(): void {
