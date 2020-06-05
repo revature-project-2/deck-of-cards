@@ -4,10 +4,21 @@
 }
 
 .card-style {
-   width: 100px;
+   width: 150px;
    padding: 3px;
+}
+
+.card-style:hover {
+  transform: scale(1.2,1.2);
 }
 
 button {
   margin: 6px;
+}
+
+.main-game {
+
+    border-radius: 20px !important;
+    padding: 6px !important;
+
 }

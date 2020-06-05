@@ -16,7 +16,7 @@
 
     <div class="col-sm-8 offset-sm-3" id="loginForm">
   <h2>Log In For Fun!</h2>
-  <form (ngSubmit)="onClick()">
+  <form (ngSubmit)="onClick()" class="needs-validation">
     <div class="form-group form-check">
       <label for="username" class="form-check-label">Username</label>
       <input type="text" class="form-control" name="username" id="username" placeholder="Username" [(ngModel)]="username" required>
