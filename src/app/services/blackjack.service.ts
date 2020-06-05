@@ -25,7 +25,9 @@ export class BlackjackService {
   // handlist = [];
   // sum = 0;
   constructor(private gServ: GameService, private http: HttpClient, private authentService: AuthenticationService) 
-  { this.user = authentService.currentUserValue}
+  {
+    this.user = authentService.currentUserValue;
+  }
 
   get gameState(): string {
     return States[this._gameState];
@@ -65,14 +67,14 @@ export class BlackjackService {
   calculateHand(hand: Card[]) {
     let sum = 0;
     let aceInHand = false;
-    for (const card of hand) {
-      if (card.value === 'ACE'){
+    for (const c of hand) {
+      if (c.value === 'ACE'){
         aceInHand = true;
       }
-      sum += card.numValue;
+      sum += c.numValue;
     }
     if (sum <= 21 && aceInHand){
-      if (sum + 10 <= 21){
+      if ((sum + 10) <= 21){
         sum += 10;
       }
     }
@@ -85,24 +87,29 @@ export class BlackjackService {
 
   hit() { // hit button function on click
     this.getCard(this.user.playerHand);
-    console.log(this.user.playerHand);
-    const handScore = this.calculateHand(this.user.playerHand);
-    if (handScore > 21) {
-      this.user.bust = true;
-      this.gameState = 'Bust';
-      this.dealerTurn();
-    }
-    else if (handScore === 21) {
-      if (this.user.playerHand.length === 2) {
-        this.user.naturalBlackJack = true;
-        this.gameState = 'Blackjack';
-      } else {
-        this.user.blackJack = true;
-        this.gameState = 'Win';
+    setTimeout(() => {
+      console.log(this.user.playerHand);
+      const handScore = this.calculateHand(this.user.playerHand);
+      if (handScore > 21) {
+        this.user.bust = true;
+        this.gameState = 'Bust';
+        this.dealerTurn();
+      } else if (handScore === 21) {
+        if (this.user.playerHand.length === 2) {
+          this.user.naturalBlackJack = true;
+          this.gameState = 'Blackjack';
+        } else {
+          this.user.blackJack = true;
+          this.gameState = 'Win';
+        }
+        this.dealerTurn();
       }
-      this.dealerTurn();
-    }
-    console.log(handScore);
+      console.log(handScore);
+    }, 300);
+  }
+
+  checkValue() {
+
   }
 
   stand() { // this is stand button function
@@ -134,7 +141,7 @@ export class BlackjackService {
     }
   }
 
-  startRound() {
+  async startRound() {
     this.user.playerHand = [];
     this.user.handValue = 0;
     this.user.naturalBlackJack = false;
@@ -162,16 +169,16 @@ export class BlackjackService {
       this.gameState = 'Lost';
     } else if (this.dealer.bust) { // In the case of dealer busting, user wins
       this.gameState = 'Win';
-    } else if(this.user.handValue > this.dealer.handValue) { // user has higher hand than dealer, user wins
+    } else if (this.user.handValue > this.dealer.handValue) { // user has higher hand than dealer, user wins
       this.gameState = 'Win';
     } else if (this.dealer.handValue > this.user.handValue) { // dealer has higher hand than user, user loses
       this.gameState = 'Lost';
     } else if (this.user.handValue === this.dealer.handValue) { // if both players have same hand value
-        if(this.user.naturalBlackJack && this.dealer.naturalBlackJack) { // if both have natural black jack they tie
+        if (this.user.naturalBlackJack && this.dealer.naturalBlackJack) { // if both have natural black jack they tie
           this.gameState = 'Tie';
         } else if (this.user.naturalBlackJack) { // if just user has natural black jack they win
           this.gameState = 'Blackjack';
-        } else if(this.dealer.naturalBlackJack) { // if just dealer has natural black jack user loses
+        } else if (this.dealer.naturalBlackJack) { // if just dealer has natural black jack user loses
           this.gameState = 'Lost';
         } else {
           this.gameState = 'Tie';
