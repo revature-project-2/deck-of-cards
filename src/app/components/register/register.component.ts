@@ -75,9 +75,11 @@ export class RegisterComponent implements OnInit {
           this.loading = false;
         },
         message => {
-          this.error = message[`error`];
           // this.alertService.error(error);
           console.log(message);
+          if(message.status === 400){
+            this.error = "User not created";
+          }
           this.loading = false;
         });
     console.log('Works');
