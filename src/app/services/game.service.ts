@@ -27,6 +27,7 @@ export class GameService {
           return result as Deck;
         })
       );
+    // this.save();
   }
 
   shuffle(id: number): Observable<Deck> {
@@ -47,7 +48,6 @@ export class GameService {
   }
 
   save() {
-    this.newGame();
     return this.http.post<any>(`${environment.appUrl}/game`, {deckId: this.gameId, type: 1, score: 0, amountWon: 0}, {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     })

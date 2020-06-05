@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { User } from 'src/app/models/user';
+import {Component, Input, OnInit} from '@angular/core';
+import {User} from 'src/app/models/user';
 //import { Dealer } from 'src/app/models/dealer';
-import { BlackjackService } from 'src/app/services/blackjack.service';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { Card } from 'src/app/models/card';
+import {BlackjackService} from 'src/app/services/blackjack.service';
+import {AuthenticationService} from 'src/app/services/authentication.service';
+import {Card} from 'src/app/models/card';
 
 @Component({
   selector: 'app-blackjack',
@@ -15,9 +15,9 @@ export class BlackjackComponent implements OnInit {
   player: User;
   public playerCards: Card[] = [];
   public dealerCards: Card[] = [];
-  @Input() dealer:boolean = false;
+  @Input() dealer = false;
 
-  //injecting the blackjack and authentication service
+  // injecting the blackjack and authentication service
   constructor(public blackjackService: BlackjackService,
               private authentService: AuthenticationService) {
   }
@@ -33,35 +33,39 @@ export class BlackjackComponent implements OnInit {
         console.log(resp.deck_id);
       }
     );
-    this.dealerCards = this.blackjackService.dealer.dealerHand;
-    this.playerCards = this.blackjackService.user.playerHand;
+    this.dealerCards = this.blackjackService.dealer.hand;
+    this.playerCards = this.blackjackService.user.hand;
     console.log(this.dealerCards);
   }
 
   public deal(): void {
     this.blackjackService.startRound();
-    this.dealerCards = this.blackjackService.dealer.dealerHand;
-    this.playerCards = this.blackjackService.user.playerHand;
+    this.dealerCards = this.blackjackService.dealer.hand;
+    this.playerCards = this.blackjackService.user.hand;
   }
 
   public hit(): void {
     this.blackjackService.hit();
-    this.dealerCards = this.blackjackService.dealer.dealerHand;
-    this.playerCards = this.blackjackService.user.playerHand;
+    this.dealerCards = this.blackjackService.dealer.hand;
+    this.playerCards = this.blackjackService.user.hand;
   }
 
   public stand(): void {
     this.blackjackService.stand();
-    this.dealerCards = this.blackjackService.dealer.dealerHand;
-    this.playerCards = this.blackjackService.user.playerHand;
+    this.dealerCards = this.blackjackService.dealer.hand;
+    this.playerCards = this.blackjackService.user.hand;
   }
 
   public reset(): void {
-    //this.blackjackService.reset();
+    this.playerCards = [];
+    this.dealerCards = [];
+    this.blackjackService.startRound();
+    this.dealerCards = this.blackjackService.dealer.hand;
+    this.playerCards = this.blackjackService.user.hand;
   }
 
   public save(): void {
-    //this.blackjackService.save();
+    // this.blackjackService.save();
   }
 
 }
