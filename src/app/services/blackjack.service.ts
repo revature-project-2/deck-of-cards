@@ -21,6 +21,7 @@ export class BlackjackService {
   newCard: Card;
   user: User;
   dealer = new Dealer();
+  // tslint:disable-next-line
   private _gameState: States;
 
   // handlist = [];
@@ -63,6 +64,7 @@ export class BlackjackService {
       who.naturalBlackJack = true;
     }
     // who.handValue = sum;
+    console.log(sum);
     return sum;
   }
 
@@ -164,14 +166,18 @@ export class BlackjackService {
     this.getCard(this.user);
     this.getCard(this.dealer);
     this.getCard(this.dealer);
-    if (this.dealer.naturalBlackJack || this.user.naturalBlackJack) {
-      this.endRound();
-    } else {
-      this.gameState = 'Dealt';
-    }
+    setTimeout(() => {
+      if (this.dealer.naturalBlackJack || this.user.naturalBlackJack) {
+        this.endRound();
+      } else {
+        this.gameState = 'Dealt';
+      }
+    }, MESSAGE_WAIT);
   }
 
   endRound() {
+    console.log("User: "+ this.user.handValue);
+    console.log("Dealer: "+ this.dealer.handValue);
     if (this.user.bust) { // In the case that user busts, set user to lost
       this.gameState = 'Lost';
     } else if (this.dealer.bust) { // In the case of dealer busting, user wins
@@ -179,18 +185,18 @@ export class BlackjackService {
     } else if (this.user.handValue > this.dealer.handValue) { // user has higher hand than dealer, user wins
       this.gameState = 'Win';
     } else if (this.dealer.handValue > this.user.handValue) { // dealer has higher hand than user, user loses
-      this.gameState = 'Lost';
+        this.gameState = 'Lose';
+      console.log("Game State: " + this.gameState);
     } else if (this.user.handValue === this.dealer.handValue) { // if both players have same hand value
       if (this.user.naturalBlackJack && this.dealer.naturalBlackJack) { // if both have natural black jack they tie
         this.gameState = 'Tie';
       } else if (this.user.naturalBlackJack) { // if just user has natural black jack they win
         this.gameState = 'Blackjack';
       } else if (this.dealer.naturalBlackJack) { // if just dealer has natural black jack user loses
-        this.gameState = 'Lost';
+        this.gameState = 'Lose';
       } else {
         this.gameState = 'Tie';
       }
     }
-
   }
 }

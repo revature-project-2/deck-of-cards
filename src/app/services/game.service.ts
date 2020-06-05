@@ -20,8 +20,10 @@ export class GameService {
   // TODO add more game functionality
   newGame(): Observable<Deck> {
     console.log("newGame in game service");
-    return this.http.get<any>(`${environment.apiURL}/new/shuffle`)
-      .pipe(map(result => {
+    return this.http
+      .get<any>(`${environment.apiURL}/new/shuffle?deck_count=6`)
+      .pipe(
+        map((result) => {
           this.gameId = result.deck_id;
           console.log(result.deck_id);
           return result as Deck;
