@@ -6,5 +6,5 @@ export class Dealer {
     bust: boolean;
     blackJack: boolean;
     naturalBlackJack: boolean;
-    dealerHand: Card[];
+  hand: Card[];
 }
