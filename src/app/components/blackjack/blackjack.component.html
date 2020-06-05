@@ -3,18 +3,19 @@
         <h2>Balance: {{user.balance}}</h2>
     </div> -->
 <div class="dealerHand border bg-success">
-    <h2>Dealer</h2>
-    <div class="row">
+    <h2 style="color: white; margin: 10px">Dealer</h2>
+    <div class="row padding-style">
       <!-- <div *ngIf="dealerCards.length === 0 || dealerCards.length === undefined">
         <img src="https://i.ibb.co/n8Rc4FM/card-back.png">
       </div> -->
       <div *ngFor="let card of dealerCards" class="text-center col-xs">
-         <img [src]="card.image"> 
+         <img [src]="card.image" class="card-style"> 
       </div>
     </div>
 </div>
 
 <div [ngSwitch]="blackjackService.gameState">
+    <div class="text-center">Dealer Value: {{this.blackjackService.dealer.handValue}} | Hand Value: {{this.blackjackService.user.handValue}}</div>
     <div>
 
     <div *ngSwitchCase="'Start'"> 
@@ -22,6 +23,7 @@
             <button (click)="deal()" type="button" class="btn btn-dark" style="align-self: center;"><strong>DEAL</strong></button>
         </div>
     </div>
+
 
     <div *ngSwitchCase="'Dealt'" class="text-center">
         <!-- <button (click)="reset()" type="button" class="btn btn-dark"><strong>RESET</strong></button>
@@ -67,14 +69,14 @@
 
 </div>
 <div class="playerHand border bg-success">
-    <h2>Player</h2>
-    <div class="row">
+    <h2 style="color: white; margin: 10px">Player</h2>
+    <div class="row padding-style">
         <!-- <h2>{{User.username}}</h2> -->
       <!-- <div *ngIf="playerCards.length === 0" class="text-center"> -->
         <!-- <img src="https://i.ibb.co/n8Rc4FM/card-back.png"> -->
       <!-- </div> -->
       <div *ngFor="let card of playerCards" class="text-center col-xs">
-         <img [src]="card.image"> 
+         <img [src]="card.image" class="card-style"> 
       </div>
     </div>
 </div>

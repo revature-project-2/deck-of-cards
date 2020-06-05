@@ -6,19 +6,26 @@ import {AuthenticationService} from '../../services/authentication.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-// export class LoginComponent implements OnInit, AfterViewInit {
+  // export class LoginComponent implements OnInit, AfterViewInit {
   @Output() logIn: EventEmitter<any> = new EventEmitter();
   loggedUser: User;
   username: string;
   password: string;
-  deckId: string;
+  submitted: boolean;
+  returnUrl: string;
+  error: string;
+  loading = false;
 
   // tslint:disable-next-line: max-line-length
-  constructor(private authenticationService: AuthenticationService, private router: Router, private el: ElementRef, private renderer: Renderer2) {
-  }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router,
+    private el: ElementRef,
+    private renderer: Renderer2
+  ) {}
 
   ngOnInit() {
     this.username = '';
@@ -29,9 +36,12 @@ export class LoginComponent implements OnInit {
     //     this.loggedUser = resp;
     //   }
     // );
-    if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['menu']);
-    }
+
+    // if (this.authenticationService.currentUserValue) {
+    //   this.router.navigate(['menu']);
+    // }
+
+
     // this.bjService.newGame().subscribe(res => this.deckId = res.deck_id);
   }
 
@@ -40,12 +50,21 @@ export class LoginComponent implements OnInit {
   // }
 
   onClick() {
-    this.authenticationService.login(this.username, this.password).subscribe(
-      resp => {
+    this.submitted = true;
+    this.loading = true;
+    this.authenticationService
+      .login(this.username, this.password)
+      .subscribe((resp) => {
         this.loggedUser = resp;
         this.logIn.emit(null);
+        this.loading = false;
         this.router.navigate(['menu']);
-      }
-    );
+      }, message => {
+        console.log(message);
+        if (message.status === 500){
+            this.error = 'User not logged in';
+          }
+        this.loading = false;
+      });
   }
 }
