@@ -9,7 +9,7 @@ import {AuthenticationService} from './services/authentication.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'deck-of-cards-front';
+  title = 'My Game';
   currentUser: User;
 
   constructor(
@@ -17,11 +17,10 @@ export class AppComponent {
     private authenticationService: AuthenticationService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    console.log('Hello');
   }
 
   logout() {
-    this.router.navigate(['menu']).then(r => console.log(r));
+    this.router.navigate(['login']).then(r => console.log(r));
     this.authenticationService.logout();
   }
 }

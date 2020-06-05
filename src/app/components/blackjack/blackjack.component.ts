@@ -18,15 +18,11 @@ export class BlackjackComponent implements OnInit {
 
   // injecting the blackjack and authentication service
   constructor(public blackjackService: BlackjackService,
-              private authentService: AuthenticationService) {
+              private authenticationService: AuthenticationService) {
   }
 
   ngOnInit(): void {
-    this.authentService.login(null, null).subscribe(
-      resp => {
-        this.player = resp;
-      }
-    );
+    this.player = this.authenticationService.currentUserValue;
     this.blackjackService.newGame().subscribe(
       resp => {
         console.log(resp.deck_id);

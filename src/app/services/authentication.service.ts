@@ -24,7 +24,6 @@ export class AuthenticationService {
 
   login(username, password) {
     console.log(`${environment.appUrl}/login`);
-
     return this.http.post<any>(`${environment.appUrl}/login`, {username, password})
       .pipe(map(result => {
         localStorage.setItem('currentUser', JSON.stringify(result));
