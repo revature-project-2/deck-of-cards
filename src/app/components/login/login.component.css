@@ -3,7 +3,14 @@
     padding: 100px 50px;
     margin:auto;
     width: 50%;
-    background-color: #343a40;
+}
+
+#loginForm h2 {
+    text-align: center;
+}
+
+.buttons-group {
+    padding-left: 21px;
 }
 
 #loginInfo
