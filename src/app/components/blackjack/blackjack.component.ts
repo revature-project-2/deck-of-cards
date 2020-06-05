@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { User } from 'src/app/models/user';
+import {Component, Input, OnInit} from '@angular/core';
+import {User} from 'src/app/models/user';
 //import { Dealer } from 'src/app/models/dealer';
-import { BlackjackService } from 'src/app/services/blackjack.service';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { Card } from 'src/app/models/card';
+import {BlackjackService} from 'src/app/services/blackjack.service';
+import {AuthenticationService} from 'src/app/services/authentication.service';
+import {Card} from 'src/app/models/card';
 
 @Component({
   selector: 'app-blackjack',
@@ -51,7 +51,7 @@ export class BlackjackComponent implements OnInit {
   }
 
   public save(): void {
-    //this.blackjackService.save();
+    // this.blackjackService.save();
   }
 
 }
