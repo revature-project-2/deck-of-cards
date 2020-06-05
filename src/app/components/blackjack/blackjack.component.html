@@ -1,11 +1,14 @@
 <h1 class="text-center">Blackjack</h1>
+<!-- <div class="balance">
+        <h2>Balance: {{user.balance}}</h2>
+    </div> -->
 <div class="dealerHand border bg-success">
-    <div>
-        <h2>Dealer</h2>
-      <!-- <div *ngIf="dealerCards.length === 0"> -->
+    <h2>Dealer</h2>
+    <div class="row">
+      <!-- <div *ngIf="dealerCards.length === 0 || dealerCards.length === undefined">
         <img src="https://i.ibb.co/n8Rc4FM/card-back.png">
-      <!-- </div> -->
-      <div *ngFor="let card of dealerCards">
+      </div> -->
+      <div *ngFor="let card of dealerCards" class="text-center col-xs">
          <img [src]="card.image"> 
       </div>
     </div>
@@ -13,58 +16,64 @@
 
 <div [ngSwitch]="blackjackService.gameState">
     <div>
-    <!-- <div class="balance">
-        <h2>Balance: {{user.balance}}</h2>
-    </div> -->
 
-    <!-- <div *ngSwitchCase="'Start'"> -->
+    <div *ngSwitchCase="'Start'"> 
         <div class="text-center">
             <button (click)="deal()" type="button" class="btn btn-dark" style="align-self: center;"><strong>DEAL</strong></button>
         </div>
+    </div>
 
     <div *ngSwitchCase="'Dealt'" class="text-center">
-        <button (click)="reset()" type="button" class="btn btn-dark"><strong>RESET</strong></button>
-        <button (click)="save()" type="button" class="btn btn-primary"><strong>SAVE</strong></button>
+        <!-- <button (click)="reset()" type="button" class="btn btn-dark"><strong>RESET</strong></button>
+        <button (click)="save()" type="button" class="btn btn-primary"><strong>SAVE</strong></button> -->
         <button (click)="hit()" type="button" class="btn btn-warning"><strong>HIT</strong></button>
-        <button (click)="stay()" type="button" class="btn btn-danger"><strong>STAY</strong></button>
+        <button (click)="stand()" type="button" class="btn btn-danger"><strong>STAND</strong></button>
     </div>
 
     <div *ngSwitchCase="'Dealing'" class="text-center">
         <div class="alert alert-dark"><strong>DEALING</strong></div>       
     </div>
 
-    <div *ngSwitchCase="'Stay'" class="text-center">
+    <div *ngSwitchCase="'Stand'" class="text-center">
         <div class="alert alert-dark"><strong>DEALING</strong></div>       
     </div>
 
     <div *ngSwitchCase="'Blackjack'">
-        <div class="alert alert-primary"><strong>BLACKJACK!</strong></div>       
+        <div class="alert alert-primary"><strong>BLACKJACK!</strong></div>   
+        <button (click)="reset()" type="button" class="btn btn-dark"><strong>RESET</strong></button>
+    
     </div>
 
     <div *ngSwitchCase="'Win'" class="text-center">
-        <div class="alert alert-success"><strong>YOU WIN</strong></div>       
+        <div class="alert alert-success"><strong>YOU WIN</strong></div> 
+        <button (click)="reset()" type="button" class="btn btn-dark"><strong>RESET</strong></button>
+      
     </div>
 
     <div *ngSwitchCase="'Lose'" class="text-center">
         <div class="alert alert-danger"><strong>YOU LOSE</strong></div>
+        <button (click)="reset()" type="button" class="btn btn-dark"><strong>RESET</strong></button>
     </div>
 
     <div *ngSwitchCase="'Tie'" class="text-center">
         <div class="alert alert-warning"><strong>TIE</strong></div>
+        <button (click)="reset()" type="button" class="btn btn-dark"><strong>RESET</strong></button>
     </div>
 
     <div *ngSwitchCase="'Bust'" class="text-center">
         <div class="alert alert-danger"><strong>BUST!</strong></div>
+        <button (click)="reset()" type="button" class="btn btn-dark"><strong>RESET</strong></button>
     </div>
 
 </div>
 <div class="playerHand border bg-success">
-    <div>
-        <h2>Player</h2>
+    <h2>Player</h2>
+    <div class="row">
+        <!-- <h2>{{User.username}}</h2> -->
       <!-- <div *ngIf="playerCards.length === 0" class="text-center"> -->
-        <img src="https://i.ibb.co/n8Rc4FM/card-back.png">
+        <!-- <img src="https://i.ibb.co/n8Rc4FM/card-back.png"> -->
       <!-- </div> -->
-      <div *ngFor="let card of playerCards" class="text-center">
+      <div *ngFor="let card of playerCards" class="text-center col-xs">
          <img [src]="card.image"> 
       </div>
     </div>

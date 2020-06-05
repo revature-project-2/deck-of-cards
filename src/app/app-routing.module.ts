@@ -11,11 +11,10 @@ import {AuthGuard} from './helper/auth.guard';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
-  {path: 'menu', component: MenuComponent},
+  {path: 'menu', component: MenuComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'blackjack', component: BlackjackComponent, canActivate: [AuthGuard]},
   {path: 'mygames', component: MygamesComponent, canActivate: [AuthGuard]},
-  {path: 'test', component: MygamesComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: ''}
 ];
 
